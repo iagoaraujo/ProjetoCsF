@@ -1,8 +1,8 @@
 package controllers;
 
+import models.Viagem;
 import play.*;
 import play.mvc.*;
-
 import views.html.*;
 
 public class Application extends Controller {
