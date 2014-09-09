@@ -69,6 +69,7 @@ public class Viagem {
              @MetaValue(targetEntity = InscricaoAberta.class, value = "A"),
              @MetaValue(targetEntity = InscricaoLimitada.class, value = "L"),
        })
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
     @JoinColumn(name="VIAGEM_ID")
 	private InscricaoStrategy inscricaoStrategy;
 	
