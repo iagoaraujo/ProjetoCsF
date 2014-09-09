@@ -3,9 +3,9 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.Calendar;
 
 import models.EContinente;
+import models.InscricaoAberta;
 import models.Usuario;
 import models.Viagem;
-import models.ViagemIlimitada;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
 
@@ -37,14 +37,15 @@ public class ApplicationTest {
         usuario.setSenha("password");
         dao.persist(usuario);
         
-        Viagem viagem = new ViagemIlimitada();
+        Viagem viagem = new Viagem();
         viagem.setPais("Brasil");
         viagem.setDescricao("teste");
         viagem.setDataInicio(Calendar.getInstance().getTime());
         viagem.setDataFim(Calendar.getInstance().getTime());
+        viagem.setInscricaoStrategy(new InscricaoAberta());
         dao.persist(viagem);
         
-        viagem.inscreverParticipante(usuario);
+        viagem.inscreverParticipante(usuario, null);
         dao.merge(viagem);
         
         Viagem viagemBD = dao.findByEntityId(Viagem.class, viagem.getId());

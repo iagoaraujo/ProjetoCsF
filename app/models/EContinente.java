@@ -14,4 +14,8 @@ public enum EContinente {
 	private EContinente(String continente) {
 		this.continente = continente;
 	}
+	
+	public String getContinente() {
+		return continente;
+	}
 }

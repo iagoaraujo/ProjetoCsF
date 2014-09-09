@@ -6,55 +6,66 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-@MappedSuperclass
-public abstract class Viagem {
+@Entity(name="viagem")
+public class Viagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected Long id;
+	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	protected EContinente continente;
+	private EContinente continente;
 	
 	@Column
 	@NotNull
-	protected String pais;
-	
-	@Column
-	@Temporal(TemporalType.DATE)
-	@NotNull
-	protected Date dataInicio;
+	private String pais;
 	
 	@Column
 	@Temporal(TemporalType.DATE)
 	@NotNull
-	protected Date dataFim;
+	private Date dataInicio;
+	
+	@Column
+	@Temporal(TemporalType.DATE)
+	@NotNull
+	private Date dataFim;
 	
 	@Column
 	@NotNull
-	protected String descricao;
+	private String descricao;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-	protected List<Usuario> participantes;
+	private List<Usuario> participantes;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Usuario responsavel; 
+	
+	@Column
+	private String senha;
+	
+	@Column
+	@NotNull
+	private InscricaoStrategy inscricaoStrategy;
 	
 	public Viagem() {
 		this.participantes = new ArrayList<Usuario>();
 	}
 	
-	public abstract void inscreverParticipante(Usuario usuario);
-	
-	public abstract void inscreverParticipante(Usuario usuario, String senha);
+	public void inscreverParticipante(Usuario usuario, String senha) {
+		if (inscricaoStrategy.validaInscricao(this, senha));
+	}
 
 	public Long getId() {
 		return id;
@@ -110,5 +121,29 @@ public abstract class Viagem {
 
 	public void setParticipantes(List<Usuario> participantes) {
 		this.participantes = participantes;
+	}
+	
+	public Usuario getResponsavel() {
+		return responsavel;
+	}
+	
+	public void setResponsavel(Usuario responsavel) {
+		this.responsavel = responsavel;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	public InscricaoStrategy getInscricaoStrategy() {
+		return inscricaoStrategy;
+	}
+	
+	public void setInscricaoStrategy(InscricaoStrategy inscricaoStrategy) {
+		this.inscricaoStrategy = inscricaoStrategy;
 	}
 }
