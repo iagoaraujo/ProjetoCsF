@@ -12,11 +12,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Any;
+import org.hibernate.annotations.AnyMetaDef;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.ManyToAny;
+import org.hibernate.annotations.MetaValue;
 
 @Entity(name="viagem")
 public class Viagem {
@@ -55,8 +63,13 @@ public class Viagem {
 	@Column
 	private String senha;
 	
-	@Column
-	@NotNull
+	@Any(metaColumn = @Column(name = "TIPO_INSCRICAO"))
+    @AnyMetaDef(idType = "long", metaType = "string", 
+            metaValues = { 
+             @MetaValue(targetEntity = InscricaoAberta.class, value = "A"),
+             @MetaValue(targetEntity = InscricaoLimitada.class, value = "L"),
+       })
+    @JoinColumn(name="VIAGEM_ID")
 	private InscricaoStrategy inscricaoStrategy;
 	
 	public Viagem() {

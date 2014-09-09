@@ -50,6 +50,7 @@ public class ApplicationTest {
         
         Viagem viagemBD = dao.findByEntityId(Viagem.class, viagem.getId());
         Assert.assertTrue(viagemBD.getParticipantes().contains(usuario));
+        Assert.assertFalse(viagemBD.getInscricaoStrategy().exigeSenha());
     }
 
 
