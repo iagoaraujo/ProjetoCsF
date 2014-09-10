@@ -1,10 +1,14 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity(name="usuario")
@@ -25,6 +29,12 @@ public class Usuario {
 	@Column
 	@NotNull
 	private String senha;
+	
+	@OneToMany(mappedBy="responsavel")
+	private List<Viagem> viagensCriadas;
+	
+	@ManyToMany(mappedBy="participantes")
+	private List<Viagem> viagensInscritas;
 	
 	public Long getId() {
 		return id;
@@ -58,15 +68,22 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	public List<Viagem> getViagensCriadas() {
+		return viagensCriadas;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Usuario) {
 			Usuario usuario = (Usuario) obj;
-			if (usuario.getNome().equals(this.nome) &&
-					usuario.getEmail().equals(this.email)) {
+			if (usuario.getEmail().equals(this.email)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public List<Viagem> getViagensInscritas() {
+		return viagensInscritas;
 	}
 }

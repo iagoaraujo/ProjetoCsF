@@ -1,4 +1,4 @@
-@(viagem: Viagem)
+@(viagem: Viagem, usuario: Usuario, viewMode: Boolean)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,11 +61,14 @@
          	Data de Início: @viagem.getDataInicio() <br>
          	Fim de viagem: @viagem.getDataFim() <br>
          	Descricao: @viagem.getDescricao() <br>
-         	
-         	@if(viagem.getInscricaoStrategy().exigeSenha()) {
-         		Senha: <input type="text" name="senha" class="form-control" required="required"><br>
+         	@if(viagem.getResponsavel()!=usuario && !viewMode) {
+         		<form action="@routes.Application.participar(viagem.getId())" method="post">
+         		@if(viagem.getInscricaoStrategy().exigeSenha()) {
+         			Senha: <input type="text" name="senha" class="form-control"><br>
+         		}
+         		<input type="submit" class="btn btn-primary" value="Participar">
+         		</form>
          	}
-         	
          	
         </div>
    

@@ -41,14 +41,12 @@ public class Viagem {
 	private String pais;
 	
 	@Column
-	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Date dataInicio;
+	private String dataInicio;
 	
 	@Column
-	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Date dataFim;
+	private String dataFim;
 	
 	@Column
 	@NotNull
@@ -105,19 +103,19 @@ public class Viagem {
 		this.pais = pais;
 	}
 
-	public Date getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
 
@@ -160,4 +158,11 @@ public class Viagem {
 	public void setInscricaoStrategy(InscricaoStrategy inscricaoStrategy) {
 		this.inscricaoStrategy = inscricaoStrategy;
 	}
+	
+	public void addParticipante(Usuario usuario) {
+		if (!participantes.contains(usuario)) {
+			participantes.add(usuario);
+		}
+	}
+	
 }

@@ -18,4 +18,13 @@ public enum EContinente {
 	public String getContinente() {
 		return continente;
 	}
+	
+	public static EContinente getEnum(String nome) {
+		for (EContinente eContinente: EContinente.values()) {
+			if (eContinente.getContinente().equals(nome)) {
+				return eContinente;
+			}
+		}
+		return null;
+	}
 }
