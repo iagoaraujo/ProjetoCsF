@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
+
+    <title>Sistema</title>
+	<link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="@routes.Assets.at("stylesheets/dashboard.css")" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Viagem CSF</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/home">Início</a></li>
+            <li><a href="/">Sair</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/home">Início</a></li>
+            <li><a href="/cadastro">Nova Viagem</a></li>
+            <li><a href="#">Presença Confirmada</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            @if(continente=="África") {
+            <li class="active"><a href="/africa">África</a></li>
+            }else{
+            <li><a href="/africa">África</a></li>
+            }
+            @if(continente=="América do Norte") {
+            <li class="active"><a href="/americadonorte">América do Norte</a></li>
+            }else{
+            <li><a href="/americadonorte">América do Norte</a></li>
+            }
+            @if(continente=="América Latina") {
+            <li class="active"><a href="/americalatina">América Latina</a></li>
+            }else{
+            <li><a href="/americalatina">América Latina</a></li>
+            }
+            @if(continente=="Ásia") {
+            <li class="active"><a href="/asia">Ásia</a></li>
+            }else{
+            <li><a href="/asia">Ásia</a></li>
+            }
+            @if(continente=="Europa") {
+            <li class="active"><a href="/europa">Europa</a></li>
+            }else{
+            <li><a href="/europa">Europa</a></li>
+            }
+            @if(continente=="Oceania") {
+            <li class="active"><a href="/oceania">Oceania</a></li>
+            }else{
+            <li><a href="/oceania">Oceania</a></li>
+            }
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">A sua viagem começa aqui!</h1>
+         <div class="row placeholders">
+         <div class="col-xs-6 col-sm-3 placeholder">         
+         <img src="@routes.Assets.at("images/viagemhome.jpg")" class="img-responsive" alt="Generic placeholder thumbnail" align="center" style="width:50px, height=50px">
+         </div>
+          
+          <h3 align = "justify">Este é um sistema feito especialmente pra você que procura companhia para a 
+          viagem dos seus sonhos. E também para você que procura um roteiro legal no seu periodo
+           de férias do intercâmbio! Aqui você pode criar uma viagem, e deixar que que qualquer 
+           pessoa participe. Ou pode colocar uma senha na sua viagem para que só possa participar
+            quem você der a senha! Além disso você pode ver as viagens que estão disponiveis
+            em cada continente do mundo e assim facilitar a sua busca.
+            
+          </h3>
+          </div>
+          
+       
+        <h2 class="sub-header">Suas Viagens</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>País</th>
+                  <th>Data Início</th>
+                  <th>Data Fim</th>
+                  <th>#</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+  </body>
+</html>
+         
+        
+

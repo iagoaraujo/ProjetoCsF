@@ -11,8 +11,11 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.continente;
 import views.html.cadastroViagem;
+import views.html.continente;
+import views.html.inicio;
+import views.html.viagemCriadaComSucesso;
+
 
 public class Application extends Controller {
 	static Form<Viagem> viagemForm = Form.form(Viagem.class);
@@ -21,6 +24,10 @@ public class Application extends Controller {
 	
     public static Result index() {
         return ok(views.html.login.render());
+    }
+    
+    public static Result start() {
+        return ok(views.html.inicio.render());
     }
     
     
@@ -72,16 +79,13 @@ public class Application extends Controller {
    }
     
     @Transactional
-    public static Result cadastrar(){
-    	Form<Viagem> filledForm = viagemForm.bindFromRequest();
-    	cadastraViagem(filledForm.get());
-    	return redirect(routes.Application.index());
+    public static Result cadastrar() {		
+    	return ok(viagemCriadaComSucesso.render());
     }
     
-    private static void cadastraViagem(Viagem viagem){
-    	getDao().merge(viagem);
-    	getDao().flush();
-    }
+    
+    
+    
     
     private static GenericDAO getDao() {
     	return dao;
