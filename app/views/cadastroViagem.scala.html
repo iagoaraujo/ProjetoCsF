@@ -42,8 +42,8 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/inicio">Início</a></li>
-            <li><a href="/cadastro">Nova Viagem</a></li>
+            <li><a href="/inicio">Início</a></li>
+            <li class="active"><a href="/cadastro">Nova Viagem</a></li>
             <li><a href="#">Presença Confirmada</a></li>
           </ul>
           <ul class="nav nav-sidebar">
@@ -62,16 +62,11 @@
           <form action="@routes.Application.cadastrar()" id="formulario" method="post">
 	        
 	      
-	        <div class="input-group input-group-lg">
-	  		<span class="input-group-addon">Local:</span>
-	  		<input type="text" name="local" class="form-control" required="required" >
-			</div>
-			<br>
-		
+	        
             
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Descrição:</span>
-	  		<input type="text" name="descricao" class="form-control" required="required" >
+	  		<input type="text" name="descricao" class="form-control"  required="required" >
 			</div>
 			<br>
 			
@@ -79,20 +74,20 @@
              
             <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Pais:</span>
-	  		<input type="text" name="pais" class="form-control" required="required" >
+	  		<input type="text" name="pais" class="form-control"  required="required" >
 			</div>
 			<br>
 			
             
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Continente:</span>
-	  		<select class="form-control input-lg">
-	  					<option>África</option>
-                        <option>América do Norte</option>
-                        <option>América Latina</option>
-                        <option>Ásia</option>
-                        <option>Europa</option>
-                        <option>Oceania</option>
+	  		<select class="form-control input-lg" name = "continente">
+	  					<option value = "África">África</option>
+                        <option value = "América do Norte">América do Norte</option>
+                        <option value = "América Latina">América Latina</option>
+                        <option value = "Ásia">Ásia</option>
+                        <option value = "Europa">Europa</option>
+                        <option value = "Oceania">Oceania</option>
                         
 	  		</select>
 	  		
@@ -101,14 +96,14 @@
             
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Data Inicio:</span>
-	  		<input type="date" name="datainicio" class="form-control" required="required" >
+	  		<input type="date" name="dataInicio" class="form-control" id="datainicio" required="required" >
 			</div>
 			<br>
 			
 			
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Data Fim:</span>
-	  		<input type="date" name="datafim" class="form-control" required="required" >
+	  		<input type="date" name="dataFim" class="form-control" id ="datafim" required="required" >
 			</div>
             <br>
             <input type="submit" class="btn btn-primary" value="Registrar">

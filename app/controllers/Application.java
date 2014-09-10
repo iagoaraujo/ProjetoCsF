@@ -15,6 +15,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.continente;
 import views.html.cadastroViagem;
+import views.html.continente;
+import views.html.inicio;
+import views.html.viagemCriadaComSucesso;
+
 
 public class Application extends Controller {
 	static Form<Viagem> viagemForm = Form.form(Viagem.class);
@@ -23,24 +27,11 @@ public class Application extends Controller {
 	
 	@Transactional
     public static Result index() {
-    	Viagem europa = new Viagem();
-    	europa.setContinente(EContinente.EUROPA);
-    	europa.setDataInicio(Calendar.getInstance().getTime());
-    	europa.setDataFim(Calendar.getInstance().getTime());
-    	europa.setInscricaoStrategy(new InscricaoAberta());
-    	europa.setDescricao("Descricao");
-    	europa.setPais("Espanha");
-    	Viagem africa = new Viagem();
-    	africa.setContinente(EContinente.AFRICA);
-    	africa.setDataInicio(Calendar.getInstance().getTime());
-    	africa.setDataFim(Calendar.getInstance().getTime());
-    	africa.setInscricaoStrategy(new InscricaoAberta());
-    	africa.setDescricao("Descricao");
-    	africa.setPais("Egito");
-    	getDao().persist(europa);
-    	getDao().persist(africa);
-    	getDao().flush();
         return ok(views.html.login.render());
+    }
+    
+    public static Result start() {
+        return ok(views.html.inicio.render());
     }
 
     public static Result inicio() {
