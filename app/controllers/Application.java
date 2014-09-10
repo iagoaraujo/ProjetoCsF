@@ -1,11 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import models.EContinente;
-import models.InscricaoAberta;
+import models.Usuario;
 import models.Viagem;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
@@ -13,23 +12,32 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.continente;
 import views.html.cadastroViagem;
-import views.html.continente;
-import views.html.inicio;
-import views.html.viagemCriadaComSucesso;
 
 
 public class Application extends Controller {
+	private static Form<Usuario> usuarioForm = Form.form(Usuario.class);
 	static Form<Viagem> viagemForm = Form.form(Viagem.class);
 
 	private static GenericDAO dao = new GenericDAOImpl();
 	
 	@Transactional
     public static Result index() {
-        return ok(views.html.login.render());
+		if (session().get("user") == null) {
+    		return redirect(routes.Login.show());
+    	}
+    	return ok(views.html.inicio.render());
     }
     
+	@Transactional
+    public static Result cadastrarUsuario() {
+    	Form<Usuario> filledForm = usuarioForm.bindFromRequest(); 
+    	getDao().merge(filledForm.get());
+    	getDao().flush();
+    	System.out.println(filledForm.get().getNome());
+    	return ok(views.html.cadastroUsuarioSucesso.render());
+	}
+	
     public static Result start() {
         return ok(views.html.inicio.render());
     }

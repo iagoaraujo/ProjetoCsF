@@ -1,3 +1,4 @@
+@(form: Form[Usuario])
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -24,26 +25,31 @@
           <h1 class="text-center">Login</h1>
       </div>
       <div class="modal-body">
-          <form class="form col-md-12 center-block" action="@routes.Application.start()">
-            <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control input-lg" placeholder="Password">
-            </div>
-            <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block" >Sign In</button>
-              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
-            </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-          <div class="col-md-12">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-		  </div>	
-      </div>
+         <div class="modal-body">
+			<form class="form col-md-12 center-block" action="@routes.Login.authenticate()" id="formulario" method="post">
+		        <input type="hidden" name="nome" class="form-control" value=" " >
+				    <div class="form-group">
+				       <input  class="form-control input-lg" type="text" name="email" class="form-control" placeholder="Email" required autofocus>
+				    </div>
+				    <div class="form-group">
+				        <input class="form-control input-lg" type="password" name="senha" class="form-control" placeholder="Senha" required>
+					</div>				        
+				    
+				    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+				    </form>
+				    <div class="form-group">
+			        	<span class="pull-right"><a href="/registrar">Register</a></span><span><a href="#">Need help?</a></span>
+			        </div>
+			      <div class="modal-footer">
+			          <div class="col-md-12">
+			          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+					  </div>	
+			      </div>
+
   </div>
   </div>
+</div>
+</div>
 </div>
 	</body>
 </html>
