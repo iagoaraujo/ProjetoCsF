@@ -6,6 +6,7 @@ import java.util.List;
 
 import models.EContinente;
 import models.InscricaoAberta;
+import models.InscricaoLimitada;
 import models.Viagem;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
@@ -30,16 +31,28 @@ public class Application extends Controller {
         return ok(views.html.login.render());
     }
     
+	@Transactional
     public static Result start() {
+    	Viagem viagem = new Viagem();
+    	viagem.setContinente(EContinente.EUROPA);
+    	viagem.setPais("Espanha");
+    	viagem.setDataFim(Calendar.getInstance().getTime());
+    	viagem.setDataInicio(Calendar.getInstance().getTime());
+    	viagem.setDescricao("Vamos viajar muitos");
+    	viagem.setInscricaoStrategy(new InscricaoAberta());
+    	Viagem viagem2 = new Viagem();
+    	viagem2.setContinente(EContinente.EUROPA);
+    	viagem2.setPais("Egito");
+    	viagem2.setDataFim(Calendar.getInstance().getTime());
+    	viagem2.setDataInicio(Calendar.getInstance().getTime());
+    	viagem2.setDescricao("Vamos viajar muitos");
+    	viagem2.setInscricaoStrategy(new InscricaoLimitada());
+    	getDao().persist(viagem);
+    	getDao().persist(viagem2);
+    	getDao().flush();
         return ok(views.html.inicio.render());
     }
 
-    public static Result inicio() {
-    	List<Viagem> viagens = new ArrayList<Viagem>();
-    	return ok(views.html.continente.render(EContinente.EUROPA.getContinente(),
-    			viagens));
-    }
-    
 	@Transactional
     public static Result continentesDaEuropa() {
     	List<Viagem> viagens = getDao().findAllByClassName("viagem");
@@ -80,6 +93,12 @@ public class Application extends Controller {
     public static Result cadastro(){
    	 return ok(cadastroViagem.render(viagemForm));
    }
+    
+    @Transactional
+    public static Result visualizarViagem(Long id) {
+    	Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+    	return ok(views.html.verviagem.render(viagem));
+    }
     
     @Transactional
     public static Result cadastrar(){

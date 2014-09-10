@@ -1,6 +1,5 @@
 package models;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
@@ -13,6 +12,6 @@ public class InscricaoAberta extends InscricaoStrategy{
 	
 	@Override
 	public boolean exigeSenha() {
-		return true;
+		return false;
 	}
 }

@@ -13,7 +13,23 @@
 	<link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="@routes.Assets.at("stylesheets/dashboard.css")" rel="stylesheet">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" ></script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+	        $('#tipoDeViagem').change(function(){
+				 cb = $(this);
+	        	 if(cb.val()=="limitada")
+	             {
+	        		 $("#divSenha").show();
+	             }
+	             else
+	             {
+	            	 $("#divSenha").hide();
+	             }
+	        });
+	    });
+		</script>
   </head>
 
   <body>
@@ -47,12 +63,12 @@
             <li><a href="#">Presença Confirmada</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">África</a></li>
-            <li><a href="">América do Norte</a></li>
-            <li><a href="">América Latina</a></li>
-            <li><a href="">Ásia</a></li>
-            <li><a href="">Europa</a></li>
-            <li><a href="">Oceania</a></li>
+            <li><a href="/africa">África</a></li>
+            <li><a href="/americadonorte">América do Norte</a></li>
+            <li><a href="/americalatina">América Latina</a></li>
+            <li><a href="/asia">Ásia</a></li>
+            <li><a href="/europa">Europa</a></li>
+            <li><a href="/oceania">Oceania</a></li>
           </ul>
           </div>
           
@@ -88,9 +104,7 @@
                         <option value = "Ásia">Ásia</option>
                         <option value = "Europa">Europa</option>
                         <option value = "Oceania">Oceania</option>
-                        
 	  		</select>
-	  		
 			</div>
             <br>
             
@@ -106,6 +120,21 @@
 	  		<input type="date" name="dataFim" class="form-control" id ="datafim" required="required" >
 			</div>
             <br>
+            
+            <div class="input-group input-group-lg">
+            <span class="input-group-addon">Tipo de viagem:</span>
+	  		<select id="tipoDeViagem" class="form-control input-lg" name = "estrategia">
+	  					<option value = "aberta">Aberta</option>
+                        <option value = "limitada">Limitada</option>
+	  		</select>
+	  		</div>
+	  		<br>
+	  		
+	  		<div id="divSenha" class="input-group input-group-lg" style="display: none;">
+	  		<span class="input-group-addon">Senha: </span>
+	  		<input type="text" name="senha" class="form-control"  required="required" >
+	  		</div>
+            
             <input type="submit" class="btn btn-primary" value="Registrar">
 			</div>
 			
@@ -117,8 +146,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
   </body>
 </html>
           

@@ -5,7 +5,6 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET     /home                       controllers.Application.start()
-GET		/inicio					    controllers.Application.inicio()
 GET		/europa						controllers.Application.continentesDaEuropa()
 GET		/asia						controllers.Application.continentesDaAsia()
 GET		/oceania					controllers.Application.continentesDaOceania()
@@ -17,6 +16,7 @@ GET		/americalatina				controllers.Application.continentesDaAmericaLatina()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /cadastro                   controllers.Application.cadastro()
+GET		/viagem/:id						controllers.Application.visualizarViagem(id: Long)
 
 POST    /inicio                  	controllers.Application.cadastrar()
 

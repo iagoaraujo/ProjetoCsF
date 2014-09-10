@@ -1,3 +1,4 @@
+@(viagem: Viagem)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,30 +56,21 @@
           </ul>
         </div>
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">A sua viagem começa aqui!</h1>
-         <div class="row placeholders">
-         <div class="col-xs-15 col-sm-15 placeholder">         
-         <img src="@routes.Assets.at("images/viagem-home.jpg")" class="img-responsive" alt="Generic placeholder thumbnail" align="center" >
-         </div>
-          
-          
-          </div>
+        <h1 class="page-header">@viagem.getPais()</h1>
+        <div class="row placeholders">
+         	Data de Início: @viagem.getDataInicio() <br>
+         	Fim de viagem: @viagem.getDataFim() <br>
+         	Descricao: @viagem.getDescricao() <br>
+         	
+         	@if(viagem.getInscricaoStrategy().exigeSenha()) {
+         		Senha: <input type="text" name="senha" class="form-control" required="required"><br>
+         	}
+         	
+         	
+        </div>
    
-       
-        <h2 class="sub-header">Suas Viagens</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>País</th>
-                  <th>Data Início</th>
-                  <th>Data Fim</th>
-                  <th>#</th>
-                </tr>
-              </thead>
-              <tbody>
-              
-    </div>
+       	
+        
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
