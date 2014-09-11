@@ -38,7 +38,7 @@ public class Viagem {
 	
 	@Column
 	@NotNull
-	private String pais;
+	private String local;
 	
 	@Column
 	@NotNull
@@ -95,12 +95,12 @@ public class Viagem {
 		this.continente = continente;
 	}
 
-	public String getPais() {
-		return pais;
+	public String getLocal() {
+		return local;
 	}
 
-	public void setPais(String pais) {
-		this.pais = pais;
+	public void setLocal(String local) {
+		this.local = local;
 	}
 
 	public String getDataInicio() {

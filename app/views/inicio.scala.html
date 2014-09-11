@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
 
-    <title>Sistema</title>
+    <title>Viagens CsF</title>
 	<link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="@routes.Assets.at("stylesheets/dashboard.css")" rel="stylesheet">
@@ -27,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Viagem CSF</a>
+          <a class="navbar-brand" href="/home">Viagem CSF</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -57,6 +57,11 @@
         </div>
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">A sua viagem começa aqui!</h1>
+         @if(flash.contains("sucesso")) {
+   		<p class="bg-success" style="width: 250px; margin-left: auto; margin-right: auto; text-align: center;">
+        	@flash.get("sucesso")
+		</p>
+   }
          <div class="row placeholders">
          <div class="col-xs-15 col-sm-15 placeholder">         
          <img src="@routes.Assets.at("images/viagem-home.jpg")" class="img-responsive" alt="Generic placeholder thumbnail" align="center" >
@@ -80,7 +85,7 @@
               <tbody>
               @for(viagem <- viagens) {
                 <tr>
-                  <td>@viagem.getPais()</td>
+                  <td>@viagem.getLocal()</td>
                   <td>@viagem.getDataInicio()</td>
                   <td>@viagem.getDataFim()</td>
                   <td><a href="#">Inscritos</a></td>

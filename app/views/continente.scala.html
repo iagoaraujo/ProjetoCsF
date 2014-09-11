@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
 
-    <title>Início</title>
+    <title>@continente</title>
 	<link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="@routes.Assets.at("stylesheets/dashboard.css")" rel="stylesheet">
@@ -27,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Viagem CSF</a>
+          <a class="navbar-brand" href="/home">Viagem CSF</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -179,7 +179,7 @@
               <tbody>
               @for(viagem <- viagens) {
                 <tr>
-                  <td>@viagem.getPais()</td>
+                  <td>@viagem.getLocal()</td>
                   <td>@viagem.getDataInicio()</td>
                   <td>@viagem.getDataFim()</td>
                   <td><a href="@routes.Application.visualizarViagemParaParticipar(viagem.getId())">Ver viagem</a></td>

@@ -43,45 +43,54 @@ public class Application extends Controller {
 
 	@Transactional
 	public static Result continentesDaEuropa() {
-		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.EUROPA);
-		for (Viagem viagem: viagens) {
-			System.out.println(viagem.getParticipantes().size());
-		}
+		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.EUROPA,
+				Utils.getListaViagensNaoInscritasDoUsuario(getUsuarioLogado(), 
+						getViagensDoSistema()));
 		return ok(views.html.continente.render(EContinente.EUROPA.getContinente(),
 				viagens));
 	}
 
 	@Transactional
 	public static Result continentesDaAfrica() {
-		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.AFRICA);
+		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.AFRICA,
+				Utils.getListaViagensNaoInscritasDoUsuario(getUsuarioLogado(), 
+						getViagensDoSistema()));
 		return ok(views.html.continente.render(EContinente.AFRICA.getContinente(),
 				viagens));
 	}    
 
 	@Transactional
 	public static Result continentesDaAsia() {
-		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.ASIA);
+		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.ASIA,
+				Utils.getListaViagensNaoInscritasDoUsuario(getUsuarioLogado(), 
+						getViagensDoSistema()));
 		return ok(views.html.continente.render(EContinente.ASIA.getContinente(),
 				viagens));
 	}
 
 	@Transactional
 	public static Result continentesDaAmericaDoNorte() {
-		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.AMERICA_DO_NORTE);
+		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.AMERICA_DO_NORTE,
+				Utils.getListaViagensNaoInscritasDoUsuario(getUsuarioLogado(), 
+						getViagensDoSistema()));
 		return ok(views.html.continente.render(EContinente.AMERICA_DO_NORTE.getContinente(),
 				viagens));
 	}
 
 	@Transactional
 	public static Result continentesDaAmericaLatina() {
-		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.AMERICA_LATINA);
+		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.AMERICA_LATINA,
+				Utils.getListaViagensNaoInscritasDoUsuario(getUsuarioLogado(), 
+						getViagensDoSistema()));
 		return ok(views.html.continente.render(EContinente.AMERICA_LATINA.getContinente(),
 				viagens));
 	}
 
 	@Transactional
 	public static Result continentesDaOceania() {
-		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.OCEANIA);
+		List<Viagem> viagens = Utils.filtraViagensPorContinente(EContinente.OCEANIA,
+				Utils.getListaViagensNaoInscritasDoUsuario(getUsuarioLogado(), 
+						getViagensDoSistema()));
 		return ok(views.html.continente.render(EContinente.OCEANIA.getContinente(),
 				viagens));
 	}
@@ -98,15 +107,21 @@ public class Application extends Controller {
 			DynamicForm requestData = Form.form().bindFromRequest();
 			String senha = requestData.get("senha");
 			if (senha.equals(viagem.getSenha())) {
+				flash("sucesso","Inscrição realizada. Boa viagem!!");
 				viagem.addParticipante(getUsuarioLogado());
+			}
+			else {
+				flash("fail","Senha inválida. Tente novamente.");
+				return redirect(routes.Application.visualizarViagemParaParticipar(id));
 			}
 		}
 		else {
+			flash("sucesso","Inscrição realizada. Boa viagem!!");
 			viagem.addParticipante(getUsuarioLogado());
 		}
 		getDao().merge(viagem);
 		getDao().flush();
-		return redirect(routes.Application.index());
+		return redirect(routes.Application.viagensInscritasDoUsuario());
 	}
 
 	@Transactional
@@ -123,8 +138,9 @@ public class Application extends Controller {
 
 	@Transactional
 	public static Result cadastrar(){
-		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "pais",
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
 				"dataInicio", "dataFim");
+		System.out.println(form.data());
 		Viagem viagem = form.get();
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String tipoDeInscricao = requestData.get("estrategia");
@@ -136,6 +152,7 @@ public class Application extends Controller {
 			viagem.setSenha(requestData.get("senha"));
 		}
 		cadastraViagem(viagem);
+		flash("sucesso","Viagem cadastrada com sucesso");
 		return redirect(routes.Application.index());
 	}
 
@@ -152,6 +169,11 @@ public class Application extends Controller {
 		Usuario usuario = getDao().findByEntityId(Usuario.class, 
 				Long.valueOf(session().get("user")));
 		return usuario;
+	}
+	
+	private static List<Viagem> getViagensDoSistema() {
+		List<Viagem> viagens = getDao().findAllByClassName("viagem");
+		return viagens;
 	}
 	
 	@Transactional
