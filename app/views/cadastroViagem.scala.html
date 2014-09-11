@@ -22,9 +22,12 @@
 	        	 if(cb.val()=="limitada")
 	             {
 	        		 $("#divSenha").show();
+	        		 $("#inputSenha").prop("required", true);
+	        		 
 	             }
 	             else
 	             {
+	            	 $("#inputSenha").prop("required", false);
 	            	 $("#divSenha").hide();
 	             }
 	        });
@@ -130,7 +133,7 @@
 	  		
 	  		<div id="divSenha" class="input-group input-group-lg" style="display: none;">
 	  		<span class="input-group-addon">Senha: </span>
-	  		<input type="text" name="senha" class="form-control" value="">
+	  		<input type="text" name="senha" class="form-control" id="inputSenha">
 	  		</div>
           
             <input type="submit" class="btn btn-primary" value="Registrar">

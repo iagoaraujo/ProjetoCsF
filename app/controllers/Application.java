@@ -25,7 +25,6 @@ public class Application extends Controller {
 	@Transactional
 	public static Result index() {
 		if (session().get("user") == null) {
-			System.out.println("index");
 			return redirect(routes.Login.show());
 		}
 		List<Viagem> viagens = getUsuarioLogado().getViagensCriadas();
@@ -37,7 +36,6 @@ public class Application extends Controller {
 		Form<Usuario> filledForm = usuarioForm.bindFromRequest(); 
 		getDao().merge(filledForm.get());
 		getDao().flush();
-		System.out.println(filledForm.get().getNome());
 		return ok(views.html.cadastroUsuarioSucesso.render());
 	}
 
@@ -140,7 +138,6 @@ public class Application extends Controller {
 	public static Result cadastrar(){
 		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
 				"dataInicio", "dataFim");
-		System.out.println(form.data());
 		Viagem viagem = form.get();
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String tipoDeInscricao = requestData.get("estrategia");
