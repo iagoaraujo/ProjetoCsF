@@ -165,24 +165,76 @@ public class Application extends Controller {
 		flash("sucesso","Viagem cadastrada com sucesso");
 		return redirect(routes.Application.index());
 	}
-	
+/*	
 	@Transactional
 	public static Result alterar(Long id) {
+		
 		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
 		
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
 		
 		DynamicForm requestData = Form.form().bindFromRequest();
-		viagem.setDescricao(requestData.get("descricao"));
-		viagem.setLocal(requestData.get("local"));
+		String tipoDeInscricao = requestData.get("estrategia");
 		String continente = requestData.get("continente");
 		viagem.setContinente(EContinente.getEnum(continente));
-		viagem.setDataInicio(requestData.get("datainicio"));
-		viagem.setDataFim(requestData.get("datafim"));	
-		String tipoDeInscricao = requestData.get("estrategia");		
 		viagem.setInscricaoStrategy(Utils.getInstanciaInscricaoStrategy(tipoDeInscricao));
+		viagem.setResponsavel(getUsuarioLogado());
+		if (viagem.getInscricaoStrategy().exigeSenha()) {
+			viagem.setSenha(requestData.get("senha"));
+		}
 		
 		
 		getDao().merge(viagem);
+		//getDao().flush();
+		return redirect(routes.Application.index());
+	}*/
+	
+/*	@Transactional
+	public static Result alterar(Long id) {
+		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+		
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
+		Viagem viagem1 = form.get();
+		DynamicForm requestData = Form.form().bindFromRequest();
+		String tipoDeInscricao = requestData.get("estrategia");
+		String continente = requestData.get("continente");
+		viagem1.setContinente(EContinente.getEnum(continente));
+		viagem1.setInscricaoStrategy(Utils.getInstanciaInscricaoStrategy(tipoDeInscricao));
+		viagem1.setResponsavel(getUsuarioLogado());
+		if (viagem.getInscricaoStrategy().exigeSenha()) {
+			viagem.setSenha(requestData.get("senha"));
+		}
+		
+		
+		viagem = viagem1;
+		getDao().merge(viagem);
+		getDao().flush();
+		
+		return redirect(routes.Application.index());
+	}*/
+	
+	@Transactional
+	public static Result alterar(Long id){
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
+		Viagem aEditar = getDao().findByEntityId(Viagem.class, id);
+		
+		aEditar.setDescricao(form.get().getDescricao());
+		aEditar.setLocal(form.get().getLocal());
+		aEditar.setContinente(form.get().getContinente());
+		aEditar.setDataInicio(form.get().getDataInicio());
+		aEditar.setDataFim(form.get().getDataFim());
+		aEditar.setInscricaoStrategy(form.get().getInscricaoStrategy());
+		
+		/*if(form.get().getInscricaoStrategy().exigeSenha()){
+			aEditar.setSenha(form.get().getSenha());
+		}*/
+		
+		getDao().merge(aEditar);
+		getDao().flush();
+		System.out.println(aEditar.getDescricao());
 		return redirect(routes.Application.index());
 	}
 
