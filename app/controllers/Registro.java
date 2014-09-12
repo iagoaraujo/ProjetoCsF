@@ -24,15 +24,14 @@ public class Registro extends Controller {
 	@Transactional
 	public static Result registrar() {
 		
-		Usuario u = registroForm.bindFromRequest().get();
-    	
+		Usuario u = registroForm.bindFromRequest().get();    	
 		if (registroForm.hasErrors() || validate(u.getEmail())) {
 			flash("fail", "Email já está em uso");
             return badRequest(registro.render(registroForm));
         } else {
         	dao.persist(u);
-            return redirect(
-                routes.Login.show()
+        	
+            return redirect( routes.Login.show()
             );
         }
     }

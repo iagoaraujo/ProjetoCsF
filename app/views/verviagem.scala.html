@@ -78,6 +78,26 @@
          		<br><input type="submit" class="btn btn-primary" value="Participar">
          		</form>
          	}
+         	<h2 class="sub-header">Suas Viagens</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Participantes</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+              @for(participante <- viagem.getParticipantes()) {
+                <tr>
+                  <td>@participante.getNome()</td>
+                  <td>@participante.getEmail()
+                  
+                  </tr>
+                }
+              </tbody>
+              <tbody>
+              
          	
         </div>
    

@@ -19,11 +19,16 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /cadastro                   controllers.Application.cadastro()
 GET		/viagem/:id/participar		controllers.Application.visualizarViagemParaParticipar(id: Long)
 GET		/viagem/:id					controllers.Application.visualizarViagem(id: Long)
+GET	   /viagem/:id/editar		    controllers.Application.visualizarViagemParaEditar(id: Long)
 
-GET     /home/viagem			controllers.Application.viagensInscritasDoUsuario()
+
+GET     /home/viagem			    controllers.Application.viagensInscritasDoUsuario()
+
+
 
 POST    /cadastroViagem                  	controllers.Application.cadastrar()
-POST    /viagem/:id/participar		controllers.Application.participar(id: Long)
+POST    /viagem/:id/editar	                 	controllers.Application.alterar(id: Long)
+POST    /viagem/:id/participar		        controllers.Application.participar(id: Long)
 
 # Login
 POST     /login						controllers.Login.authenticate()

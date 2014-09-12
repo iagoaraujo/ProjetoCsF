@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import javax.swing.text.html.FormView;
+
 import models.EContinente;
 import models.Usuario;
 import models.Viagem;
@@ -14,11 +16,15 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.cadastroViagem;
+import views.html.minhaviagem;
+
+
 
 
 public class Application extends Controller {
 	private static Form<Usuario> usuarioForm = Form.form(Usuario.class);
 	static Form<Viagem> viagemForm = Form.form(Viagem.class);
+	
 
 	private static GenericDAO dao = new GenericDAOImpl();
 
@@ -133,6 +139,13 @@ public class Application extends Controller {
 		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
 		return ok(views.html.verviagem.render(viagem, getUsuarioLogado(), false));
 	}
+	
+	@Transactional
+	public static Result visualizarViagemParaEditar(Long id) {		
+		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+		return ok(views.html.minhaviagem.render(viagem));
+	}
+
 
 	@Transactional
 	public static Result cadastrar(){
@@ -150,6 +163,26 @@ public class Application extends Controller {
 		}
 		cadastraViagem(viagem);
 		flash("sucesso","Viagem cadastrada com sucesso");
+		return redirect(routes.Application.index());
+	}
+	
+	@Transactional
+	public static Result alterar(Long id) {
+		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+		
+		
+		DynamicForm requestData = Form.form().bindFromRequest();
+		viagem.setDescricao(requestData.get("descricao"));
+		viagem.setLocal(requestData.get("local"));
+		String continente = requestData.get("continente");
+		viagem.setContinente(EContinente.getEnum(continente));
+		viagem.setDataInicio(requestData.get("datainicio"));
+		viagem.setDataFim(requestData.get("datafim"));	
+		String tipoDeInscricao = requestData.get("estrategia");		
+		viagem.setInscricaoStrategy(Utils.getInstanciaInscricaoStrategy(tipoDeInscricao));
+		
+		
+		getDao().merge(viagem);
 		return redirect(routes.Application.index());
 	}
 

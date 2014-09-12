@@ -49,6 +49,8 @@ public class Login extends Controller {
 		return redirect(routes.Application.index());
 	}
 	
+	
+	
 	@Transactional
 	private static Usuario userRegistered(Usuario pessoa) {
 		List<Usuario> pessoas = getDao().findAllByClassName("usuario");
