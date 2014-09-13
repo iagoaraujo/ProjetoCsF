@@ -2,7 +2,10 @@ package controllers;
 
 import java.util.List;
 
+import javax.swing.text.html.FormView;
+
 import models.EContinente;
+import models.InscricaoStrategy;
 import models.Usuario;
 import models.Viagem;
 import models.dao.GenericDAO;
@@ -14,11 +17,15 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.cadastroViagem;
+import views.html.minhaviagem;
+
+
 
 
 public class Application extends Controller {
 	private static Form<Usuario> usuarioForm = Form.form(Usuario.class);
 	static Form<Viagem> viagemForm = Form.form(Viagem.class);
+	
 
 	private static GenericDAO dao = new GenericDAOImpl();
 
@@ -133,6 +140,13 @@ public class Application extends Controller {
 		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
 		return ok(views.html.verviagem.render(viagem, getUsuarioLogado(), false));
 	}
+	
+	@Transactional
+	public static Result visualizarViagemParaEditar(Long id) {		
+		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+		return ok(views.html.minhaviagem.render(viagem));
+	}
+
 
 	@Transactional
 	public static Result cadastrar(){
@@ -152,7 +166,123 @@ public class Application extends Controller {
 		flash("sucesso","Viagem cadastrada com sucesso");
 		return redirect(routes.Application.index());
 	}
+/*	
+	@Transactional
+	public static Result alterar(Long id) {
+		
+		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+		
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
+		
+		DynamicForm requestData = Form.form().bindFromRequest();
+		String tipoDeInscricao = requestData.get("estrategia");
+		String continente = requestData.get("continente");
+		viagem.setContinente(EContinente.getEnum(continente));
+		viagem.setInscricaoStrategy(Utils.getInstanciaInscricaoStrategy(tipoDeInscricao));
+		viagem.setResponsavel(getUsuarioLogado());
+		if (viagem.getInscricaoStrategy().exigeSenha()) {
+			viagem.setSenha(requestData.get("senha"));
+		}
+		
+		
+		getDao().merge(viagem);
+		//getDao().flush();
+		return redirect(routes.Application.index());
+	}*/
+	
+/*	@Transactional
+	public static Result alterar(Long id) {
+		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
+		
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
+		Viagem viagem1 = form.get();
+		DynamicForm requestData = Form.form().bindFromRequest();
+		String tipoDeInscricao = requestData.get("estrategia");
+		String continente = requestData.get("continente");
+		viagem1.setContinente(EContinente.getEnum(continente));
+		viagem1.setInscricaoStrategy(Utils.getInstanciaInscricaoStrategy(tipoDeInscricao));
+		viagem1.setResponsavel(getUsuarioLogado());
+		if (viagem.getInscricaoStrategy().exigeSenha()) {
+			viagem.setSenha(requestData.get("senha"));
+		}
+		
+		
+		viagem = viagem1;
+		getDao().merge(viagem);
+		getDao().flush();
+		
+		return redirect(routes.Application.index());
+	}*/
+	
+/*	@Transactional
+	public static Result alterar(Long id){
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
+		Viagem viagem = form.get();
+		DynamicForm requestData = Form.form().bindFromRequest();
+		
+		String tipoDeInscricao = requestData.get("estrategia");
+		InscricaoStrategy inscricaoStrategy = Utils.getInstanciaInscricaoStrategy(tipoDeInscricao);
 
+		
+		
+		String continente = requestData.get("continente");
+		viagem.setContinente(EContinente.getEnum(continente));
+		
+		viagem.setInscricaoStrategy(inscricaoStrategy);
+		
+		if (viagem.getInscricaoStrategy().exigeSenha()) {
+			viagem.setSenha(requestData.get("senha"));
+		}
+		
+		getDao().merge(viagem);
+		getDao().persist(inscricaoStrategy);
+		getDao().flush();
+		
+		return redirect(routes.Application.index());
+	}
+*/
+	
+		@Transactional
+	public static Result alterar(Long id){
+		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
+				"dataInicio", "dataFim");
+		Viagem aEditar = getDao().findByEntityId(Viagem.class, id);
+		DynamicForm requestData = Form.form().bindFromRequest();
+		
+		aEditar.setDescricao(form.get().getDescricao());
+		aEditar.setLocal(form.get().getLocal());
+		aEditar.setContinente(form.get().getContinente());
+		aEditar.setDataInicio(form.get().getDataInicio());
+		aEditar.setDataFim(form.get().getDataFim());
+		
+		
+		
+		String tipoDeInscricao = requestData.get("estrategia");
+		InscricaoStrategy inscricaoStrategy = Utils.getInstanciaInscricaoStrategy(tipoDeInscricao);
+
+		
+		
+		String continente = requestData.get("continente");
+		aEditar.setContinente(EContinente.getEnum(continente));
+		
+		aEditar.setInscricaoStrategy(inscricaoStrategy);
+		getDao().persist(inscricaoStrategy);
+		getDao().flush();
+		
+		
+		if (aEditar.getInscricaoStrategy().exigeSenha()) {
+			aEditar.setSenha(requestData.get("senha"));
+		}
+		
+		getDao().merge(aEditar);
+		getDao().flush();
+		
+		return redirect(routes.Application.index());
+	}
+	
 	private static void cadastraViagem(Viagem viagem){
 		getDao().persist(viagem);
 		getDao().flush();

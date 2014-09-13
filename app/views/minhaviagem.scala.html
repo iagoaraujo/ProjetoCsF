@@ -1,7 +1,7 @@
-@(viagemForm: Form[Viagem])
+@(viagem: Viagem)
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
 
-    <title>Cadastrar Viagem</title>
+    <title>Minha Viagem</title>
 	<link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="@routes.Assets.at("stylesheets/dashboard.css")" rel="stylesheet">
@@ -62,7 +62,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li><a href="/home">Início</a></li>
-            <li class="active"><a href="/cadastro">Nova Viagem</a></li>
+            <li><a href="/cadastro">Nova Viagem</a></li>
             <li><a href="/home/viagem">Presença Confirmada</a></li>
           </ul>
           <ul class="nav nav-sidebar">
@@ -73,32 +73,32 @@
             <li><a href="/europa">Europa</a></li>
             <li><a href="/oceania">Oceania</a></li>
           </ul>
-          </div>
-          
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Cadastro</h1>
+        </div>
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">@viagem.getLocal()</h1>
+        <div>
 
-          <form action="@routes.Application.cadastrar()" id="formulario" method="post">
+         	<form action="@routes.Application.alterar(viagem.getId())" id="formulario2" method="post">
 	        
 	      
 	        
             
 	        <div class="input-group input-group-lg">
-	  		<span class="input-group-addon">Descrição:</span>
-	  		<input type="text" name="descricao" class="form-control"  required="required" >
+	  			<span class="input-group-addon">Descrição:</span>
+	  			<input type="text" name="descricao" class="form-control" value=@viagem.getDescricao()  required="required" >
 			</div>
 			<br>
 			
             <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Local:</span>
-	  		<input type="text" name="local" class="form-control"  required="required" >
+	  		<input type="text" name="local" class="form-control" value=@viagem.getLocal()  required="required" >
 			</div>
 			<br>
 			
             
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Continente:</span>
-	  		<select class="form-control input-lg" name = "continente">
+	  		<select class="form-control input-lg" value=@viagem.getContinente() name = "continente">
 	  					<option value = "África">África</option>
                         <option value = "América do Norte">América do Norte</option>
                         <option value = "América Latina">América Latina</option>
@@ -111,14 +111,14 @@
             
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Data Inicio:</span>
-	  		<input type="date" name="dataInicio" class="form-control" id="datainicio" required="required" >
+	  		<input type="date" name="dataInicio" class="form-control" id="datainicio" value=@viagem.getDataInicio() required="required" >
 			</div>
 			<br>
 			
 			
 	        <div class="input-group input-group-lg">
 	  		<span class="input-group-addon">Data Fim:</span>
-	  		<input type="date" name="dataFim" class="form-control" id ="datafim" required="required" >
+	  		<input type="date" name="dataFim" class="form-control" id ="datafim" value=@viagem.getDataFim() required="required" >
 			</div>
             <br>
             
@@ -136,15 +136,47 @@
 	  		<input type="text" name="senha" class="form-control" id="inputSenha">
 	  		</div>
           
-            <input type="submit" class="btn btn-primary" value="Registrar">
+            <input type="submit" class="btn btn-primary" value="Alterar">
+            
+            <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Participantes</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+              @for(participante <- viagem.getParticipantes()) {
+                <tr>
+                  <td>@participante.getNome()</td>
+                  <td>@participante.getEmail()
+                  
+                  </tr>
+                }
+              </tbody>
+              <tbody>
+              
+         	
+        </div>
         
         </form>
-          
-          
-          
+       
+         	
+         	
+        </div>
+        </div>
+   
+       	
+        
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
   </body>
 </html>
-          
+         
+        
+
