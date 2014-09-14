@@ -91,6 +91,19 @@ public class Viagem {
 		return continente;
 	}
 
+	public Viagem(EContinente continente, String local, String dataInicio,
+			String dataFim, String descricao, List<Usuario> participantes,
+			Usuario responsavel) {
+		super();
+		this.continente = continente;
+		this.local = local;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+		this.descricao = descricao;
+		this.participantes = participantes;
+		this.responsavel = responsavel;
+	}
+
 	public void setContinente(EContinente continente) {
 		this.continente = continente;
 	}

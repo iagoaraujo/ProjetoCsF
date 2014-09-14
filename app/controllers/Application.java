@@ -42,6 +42,7 @@ public class Application extends Controller {
 			return redirect(routes.Login.show());
 		}
 		List<Viagem> viagens = getUsuarioLogado().getViagensCriadas();
+		
 		return ok(views.html.inicio.render(viagens));
 	}
 

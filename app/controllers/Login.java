@@ -5,6 +5,8 @@ import static play.data.Form.form;
 import java.util.List;
 
 
+
+
 import models.Usuario;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
@@ -21,6 +23,10 @@ public class Login extends Controller {
 
 	@Transactional
     public static Result show() {
+			if (getDao().findAllByClassName("viagem").isEmpty()) {
+				GeradordeExemplos g = new GeradordeExemplos();
+				g.gera();
+			}
 		if (session().get("user") != null) {
 			return redirect(routes.Application.index());
 		}
@@ -37,6 +43,7 @@ public class Login extends Controller {
     
 	@Transactional
 	public static Result authenticate() {
+		
 		Usuario pessoa = getLoginForm().bindFromRequest().get();
 		Usuario user = UsuarioNoSistemaESenhaOk(pessoa);
 		if (user==null) {	

@@ -45,6 +45,16 @@ public class Usuario {
 		return id;
 	}
 
+	public Usuario(){
+		
+	}
+	public Usuario(String nome, String email, String senha) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
