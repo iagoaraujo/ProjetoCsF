@@ -23,8 +23,6 @@ import views.html.cadastroViagem;
 
 public class Application extends Controller {
 	private static Form<Viagem> viagemForm = Form.form(Viagem.class);
-	private static Form<Usuario> registroForm = form(Usuario.class).bindFromRequest();
-
 
 	private static GenericDAO dao = new GenericDAOImpl();
 
