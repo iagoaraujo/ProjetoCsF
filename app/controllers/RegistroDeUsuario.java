@@ -34,7 +34,7 @@ public class RegistroDeUsuario extends Controller {
 			flash("sucesso","Usuario criado com sucesso");
 			return redirect(routes.Login.show());
 		} catch (PersistenceException ex) {
-			flash("fail","Dados já em uso. Tente um nome ou email diferentes");
+			flash("fail","Email já em uso. Tente novamente.");
 			return redirect(routes.RegistroDeUsuario.show());
 		}
     }
