@@ -25,7 +25,10 @@
 		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 		          <h1 class="text-center">Registro</h1>
 		      </div>
-		      
+		      @if(flash.contains("fail")) {
+   				<p class="bg-success" style="width: 250px; margin-left: auto; margin-right: auto; text-align: center;">
+        		@flash.get("fail")
+        	}
 		   <div class="modal-body">
 			          <form class="form col-md-12 center-block" action="@routes.Application.cadastrarUsuario()" method="post">
 			            <div class="form-group">

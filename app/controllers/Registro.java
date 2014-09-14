@@ -2,6 +2,9 @@ package controllers;
 
 
 import static play.data.Form.form;
+
+import java.util.List;
+
 import models.Usuario;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
@@ -25,8 +28,9 @@ public class Registro extends Controller {
 	public static Result registrar() {
 		
 		Usuario u = registroForm.bindFromRequest().get();    	
-		if (registroForm.hasErrors() || validate(u.getEmail())) {
+		if (registroForm.hasErrors() || !dao.findByAttributeName("Usuario", "nome", u.getNome()).isEmpty()) {
 			flash("fail", "Email já está em uso");
+			System.out.println("verificauso");
             return badRequest(registro.render(registroForm));
         } else {
         	dao.persist(u);
@@ -35,6 +39,17 @@ public class Registro extends Controller {
             );
         }
     }
+	
+	@Transactional
+	private static boolean userRegistered(Usuario pessoa) {
+		List<Usuario> pessoas = dao.findAllByClassName("usuario");
+		for (Usuario usuario: pessoas) {
+			if (usuario.equals(pessoa)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	private static boolean validate(String email) {
 		return true;

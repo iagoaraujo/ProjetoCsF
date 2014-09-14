@@ -31,7 +31,7 @@ POST    /viagem/:id/editar	                 	controllers.Application.alterar(id:
 POST    /viagem/:id/participar		        controllers.Application.participar(id: Long)
 
 # Login
-POST     /login						controllers.Login.authenticate()
+POST     /login						     controllers.Login.authenticate()
 GET     /logout							 controllers.Login.logout()
 
 POST    /cadastrarUsuario           controllers.Application.cadastrarUsuario()
