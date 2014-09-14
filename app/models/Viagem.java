@@ -71,7 +71,12 @@ public class Viagem {
 	}
 	
 	public void inscreverParticipante(Usuario usuario, String senha) {
-		if (inscricaoStrategy.validaInscricao(this, senha));
+		if (inscricaoStrategy.validaInscricao(this, senha)) {
+			addParticipante(usuario);
+		}
+		else {
+			throw new InscricaoException("Senha inválida. Tente novamente.");
+		}
 	}
 
 	public Long getId() {
@@ -159,5 +164,53 @@ public class Viagem {
 			participantes.add(usuario);
 		}
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Viagem))
+			return false;
+		Viagem other = (Viagem) obj;
+		if (continente != other.continente)
+			return false;
+		if (dataFim == null) {
+			if (other.dataFim != null)
+				return false;
+		} else if (!dataFim.equals(other.dataFim))
+			return false;
+		if (dataInicio == null) {
+			if (other.dataInicio != null)
+				return false;
+		} else if (!dataInicio.equals(other.dataInicio))
+			return false;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (inscricaoStrategy == null) {
+			if (other.inscricaoStrategy != null)
+				return false;
+		} else if (!inscricaoStrategy.equals(other.inscricaoStrategy))
+			return false;
+		if (local == null) {
+			if (other.local != null)
+				return false;
+		} else if (!local.equals(other.local))
+			return false;
+		if (responsavel == null) {
+			if (other.responsavel != null)
+				return false;
+		} else if (!responsavel.equals(other.responsavel))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		return true;
+	}
 }

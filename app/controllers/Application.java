@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.swing.text.html.FormView;
 
+import com.google.common.base.Strings;
+
 import models.EContinente;
+import models.InscricaoException;
 import models.InscricaoStrategy;
 import models.Usuario;
 import models.Viagem;
@@ -107,26 +110,18 @@ public class Application extends Controller {
 	@Transactional
 	public static Result participar(Long id) {
 		Viagem viagem = getDao().findByEntityId(Viagem.class, id);
-		//verificar se precisa de senha e se ela é válida
-		if (viagem.getInscricaoStrategy().exigeSenha()) {
-			DynamicForm requestData = Form.form().bindFromRequest();
-			String senha = requestData.get("senha");
-			if (senha.equals(viagem.getSenha())) {
-				flash("sucesso","Inscrição realizada. Boa viagem!!");
-				viagem.addParticipante(getUsuarioLogado());
-			}
-			else {
-				flash("fail","Senha inválida. Tente novamente.");
-				return redirect(routes.Application.visualizarViagemParaParticipar(id));
-			}
-		}
-		else {
+		DynamicForm requestData = Form.form().bindFromRequest();
+		String senha = requestData.get("senha");
+		try {
+			viagem.inscreverParticipante(getUsuarioLogado(), senha);
 			flash("sucesso","Inscrição realizada. Boa viagem!!");
-			viagem.addParticipante(getUsuarioLogado());
+			getDao().merge(viagem);
+			getDao().flush();
+			return redirect(routes.Application.viagensInscritasDoUsuario());
+		} catch(InscricaoException ex) {
+			flash("fail",ex.getMessage());
+			return redirect(routes.Application.visualizarViagemParaParticipar(id));
 		}
-		getDao().merge(viagem);
-		getDao().flush();
-		return redirect(routes.Application.viagensInscritasDoUsuario());
 	}
 
 	@Transactional
@@ -152,6 +147,7 @@ public class Application extends Controller {
 	public static Result cadastrar(){
 		Form<Viagem> form = viagemForm.bindFromRequest("descricao", "local",
 				"dataInicio", "dataFim");
+		System.out.println(form.data().toString());
 		Viagem viagem = form.get();
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String tipoDeInscricao = requestData.get("estrategia");
@@ -160,7 +156,13 @@ public class Application extends Controller {
 		viagem.setInscricaoStrategy(Utils.getInstanciaInscricaoStrategy(tipoDeInscricao));
 		viagem.setResponsavel(getUsuarioLogado());
 		if (viagem.getInscricaoStrategy().exigeSenha()) {
-			viagem.setSenha(requestData.get("senha"));
+			String senha = requestData.get("senha");
+			if (!Strings.isNullOrEmpty(senha)) {
+				viagem.setSenha(senha);
+			}
+			else {
+				throw new InscricaoException("Senha e obrigatoria para inscricoes limitadas");
+			}
 		}
 		cadastraViagem(viagem);
 		flash("sucesso","Viagem cadastrada com sucesso");

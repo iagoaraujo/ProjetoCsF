@@ -32,15 +32,11 @@ public class Usuario {
 	@NotNull
 	private String senha;
 	
-	@OneToMany(mappedBy="responsavel", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="responsavel")
 	private List<Viagem> viagensCriadas;
 	
 	@ManyToMany(mappedBy="participantes")
 	private List<Viagem> viagensInscritas;
-	
-	public Usuario() {
-		viagensCriadas = new ArrayList<Viagem>();
-	}
 	
 	public Long getId() {
 		return id;
