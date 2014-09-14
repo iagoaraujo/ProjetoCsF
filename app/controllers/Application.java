@@ -43,7 +43,7 @@ public class Application extends Controller {
 		}
 		List<Viagem> viagens = getUsuarioLogado().getViagensCriadas();
 		
-		return ok(views.html.inicio.render(viagens));
+		return ok(views.html.inicio.render(viagens,getUsuarioLogado().getNome()));
 	}
 
 	@Transactional

@@ -1,4 +1,4 @@
-@(viagens: List[Viagem])
+@(viagens: List[Viagem],usuario: String)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,7 +56,7 @@
           </ul>
         </div>
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">A sua viagem começa aqui!</h1>
+        <h1 class="page-header">A sua viagem começa aqui @usuario</h1>
          @if(flash.contains("sucesso")) {
    		<p class="bg-success" style="width: 250px; margin-left: auto; margin-right: auto; text-align: center;">
         	@flash.get("sucesso")
