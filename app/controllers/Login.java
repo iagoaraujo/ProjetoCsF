@@ -17,33 +17,33 @@ import play.db.jpa.Transactional;
 import views.html.login;
 
 public class Login extends Controller {
-	
+
 	private static GenericDAO dao = new GenericDAOImpl();
 	private static Form<Usuario> loginForm = form(Usuario.class).bindFromRequest();
 
 	@Transactional
-    public static Result show() {
-			if (getDao().findAllByClassName("viagem").isEmpty()) {
-				GeradordeExemplos g = new GeradordeExemplos();
-				g.gera();
-			}
+	public static Result show() {
+		if (getDao().findAllByClassName("viagem").isEmpty()) {
+			GeradordeExemplos g = new GeradordeExemplos();
+			g.gera();
+		}
 		if (session().get("user") != null) {
 			return redirect(routes.Application.index());
 		}
-        return ok(views.html.login.render(getLoginForm()));
-    }
-	
+		return ok(views.html.login.render(getLoginForm()));
+	}
+
 	@Transactional
 	public static Result logout() {
 		session().clear();
 		return show();
 	}
-	
-	
-    
+
+
+
 	@Transactional
 	public static Result authenticate() {
-		
+
 		Usuario pessoa = getLoginForm().bindFromRequest().get();
 		Usuario user = usuarioNoSistemaESenhaOk(pessoa);
 		if (user==null) {	
@@ -52,12 +52,12 @@ public class Login extends Controller {
 		}
 		session().clear();
 		session("user", user.getId().toString());
-		
+
 		return redirect(routes.Application.index());
 	}
-	
-	
-	
+
+
+
 	@Transactional
 	private static Usuario usuarioNoSistemaESenhaOk(Usuario pessoa) {
 		List<Usuario> pessoas = getDao().findAllByClassName("usuario");
@@ -68,7 +68,7 @@ public class Login extends Controller {
 		}
 		return null;
 	}
-	
+
 	private static boolean validate(String email, String senha) {
 		List<Usuario> u = dao.findByAttributeName("Usuario", "email", email);
 		if (u == null || u.isEmpty()) {
@@ -79,11 +79,11 @@ public class Login extends Controller {
 		}
 		return true;
 	}
-	
+
 	private static GenericDAO getDao() {
 		return dao;
 	}
-	
+
 	private static Form<Usuario> getLoginForm() {
 		return loginForm;
 	}
