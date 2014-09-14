@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import play.db.jpa.JPA;
@@ -19,7 +18,7 @@ import models.dao.GenericDAOImpl;
 public class GeradordeExemplos {
 	
 	private static GenericDAO dao = new GenericDAOImpl(); 
-	private final static String DATA = Calendar.getInstance().getTime().toString();
+	private final static String DATA = "2014-09-13";
 	
 
 	private static Usuario usuario1;
