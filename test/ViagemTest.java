@@ -88,8 +88,8 @@ public class ViagemTest {
     	            	form.put("nome", usuario.getNome());
     	            	form.put("email", usuario.getEmail());
     	            	form.put("senha", usuario.getSenha());
-    	            	Result result = callAction(controllers.routes.ref.Application
-    	            			.cadastrarUsuario(), 
+    	            	Result result = callAction(controllers.routes.ref
+    	            			.RegistroDeUsuario.registrar(), 
     	                		fakeRequest().withFormUrlEncodedBody(form));
     	            	assertThat(!session(result).isEmpty());
     	            	
@@ -129,8 +129,8 @@ public class ViagemTest {
     	            	form.put("nome", usuario.getNome());
     	            	form.put("email", usuario.getEmail());
     	            	form.put("senha", usuario.getSenha());
-    	            	Result result = callAction(controllers.routes.ref.Application
-    	            			.cadastrarUsuario(), 
+    	            	Result result = callAction(controllers.routes.ref
+    	            			.RegistroDeUsuario.registrar(), 
     	                		fakeRequest().withFormUrlEncodedBody(form));
     	            	assertThat(!session(result).isEmpty());
     	            	
@@ -170,8 +170,8 @@ public class ViagemTest {
     	            	form.put("nome", usuario.getNome());
     	            	form.put("email", usuario.getEmail());
     	            	form.put("senha", usuario.getSenha());
-    	            	Result result = callAction(controllers.routes.ref.Application
-    	            			.cadastrarUsuario(), 
+    	            	Result result = callAction(controllers.routes.ref.
+    	            			RegistroDeUsuario.registrar(), 
     	                		fakeRequest().withFormUrlEncodedBody(form));
     	            	assertThat(!session(result).isEmpty());
     	            	

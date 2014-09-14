@@ -93,7 +93,7 @@ public class UsuarioTest {
     	            	form.put("nome", usuario.getNome());
     	            	form.put("email", usuario.getEmail());
     	            	form.put("senha", usuario.getSenha());
-    	            	callAction(controllers.routes.ref.Application.cadastrarUsuario(), 
+    	            	callAction(controllers.routes.ref.RegistroDeUsuario.registrar(), 
     	                		fakeRequest().withFormUrlEncodedBody(form));
     	            	
     	            	Result result = callAction(controllers.routes.ref.Login.authenticate(), 
