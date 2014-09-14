@@ -1,5 +1,7 @@
 package controllers;
 
+import static play.data.Form.form;
+
 import java.util.List;
 
 import javax.swing.text.html.FormView;
@@ -21,6 +23,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.cadastroViagem;
 import views.html.minhaviagem;
+import views.html.registro;
 
 
 
@@ -28,6 +31,7 @@ import views.html.minhaviagem;
 public class Application extends Controller {
 	private static Form<Usuario> usuarioForm = Form.form(Usuario.class);
 	static Form<Viagem> viagemForm = Form.form(Viagem.class);
+	static Form<Usuario> registroForm = form(Usuario.class).bindFromRequest();
 	
 
 	private static GenericDAO dao = new GenericDAOImpl();
@@ -43,11 +47,22 @@ public class Application extends Controller {
 
 	@Transactional
 	public static Result cadastrarUsuario() {
-		Form<Usuario> filledForm = usuarioForm.bindFromRequest(); 
-		getDao().merge(filledForm.get());
-		getDao().flush();
-		return ok(views.html.cadastroUsuarioSucesso.render());
-	}
+		Form<Usuario> filledForm = registroForm.bindFromRequest(); 
+		Usuario user = registroForm.bindFromRequest().get();
+		
+		/*if ((getDao().findAllByClassName("Usuario")).contains(user)){
+			flash("fail","Usuario já existe no sistema");
+			return ok(registro.render(registroForm));
+		}
+		else{*/
+			getDao().merge(filledForm.get());
+			getDao().flush();		
+			flash("sucesso","Usuario criado com sucesso");
+			return redirect(routes.Login.show());
+			
+		}
+		
+	//}
 
 	@Transactional
 	public static Result continentesDaEuropa() {

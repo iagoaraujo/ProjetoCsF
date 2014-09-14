@@ -4,6 +4,7 @@ import static play.data.Form.form;
 
 import java.util.List;
 
+
 import models.Usuario;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
@@ -21,10 +22,8 @@ public class Login extends Controller {
 	@Transactional
     public static Result show() {
 		if (session().get("user") != null) {
-			System.out.println("show");
 			return redirect(routes.Application.index());
 		}
-		System.out.println("null");
         return ok(views.html.login.render(getLoginForm()));
     }
 	
@@ -33,29 +32,30 @@ public class Login extends Controller {
 		session().clear();
 		return show();
 	}
+	
+	
     
 	@Transactional
 	public static Result authenticate() {
 		Usuario pessoa = getLoginForm().bindFromRequest().get();
-		Usuario user = userRegistered(pessoa);
-		if (user==null) {
-			System.out.println("deu algum erro");
-			flash("fail", "Email ou Senha Inválidos");
+		Usuario user = UsuarioNoSistemaESenhaOk(pessoa);
+		if (user==null) {	
+			flash("fail","Usuario ou senha invalidos!");
 			return badRequest(login.render(getLoginForm()));
 		}
 		session().clear();
 		session("user", user.getId().toString());
-		System.out.println("logoooooooooou");
+		
 		return redirect(routes.Application.index());
 	}
 	
 	
 	
 	@Transactional
-	private static Usuario userRegistered(Usuario pessoa) {
+	private static Usuario UsuarioNoSistemaESenhaOk(Usuario pessoa) {
 		List<Usuario> pessoas = getDao().findAllByClassName("usuario");
 		for (Usuario usuario: pessoas) {
-			if (usuario.equals(pessoa)) {
+			if (usuario.equals(pessoa) && usuario.getSenha().equals(pessoa.getSenha())) {
 				return usuario;
 			}
 		}

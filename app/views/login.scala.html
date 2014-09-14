@@ -30,6 +30,10 @@
    			<p class="bg-success" style="width: 250px; margin-left: auto; margin-right: auto; text-align: center;">
         	@flash.get("fail")
         	}
+        	 @if(flash.contains("sucesso")) {
+   				<p class="bg-success" style="width: 250px; margin-left: auto; margin-right: auto; text-align: center;">
+        		@flash.get("sucesso")
+        	}
         	
 			<form class="form col-md-12 center-block" action="@routes.Login.authenticate()" id="formulario" method="post">
 		        <input type="hidden" name="nome" class="form-control" value=" " >
@@ -45,11 +49,7 @@
 				    <div class="form-group">
 			        	<span class="pull-right"><a href="/registrar">Register</a></span><span><a href="#">Need help?</a></span>
 			        </div>
-			      <div class="modal-footer">
-			          <div class="col-md-12">
-			          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-					  </div>	
-			      </div>
+			      
 
   </div>
   </div>
