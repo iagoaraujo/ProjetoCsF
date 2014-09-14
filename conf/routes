@@ -34,8 +34,6 @@ POST    /viagem/:id/participar		        controllers.Application.participar(id: L
 POST     /login						     controllers.Login.authenticate()
 GET     /logout							 controllers.Login.logout()
 
-POST    /cadastrarUsuario           controllers.Application.cadastrarUsuario()
-
-# Registro
-GET     /registrar                       controllers.Registro.show()
-POST    /registrar                       controllers.Registro.registrar()
+# Registro de Usuario
+GET     /registrar                       controllers.RegistroDeUsuario.show()
+POST    /registrar                       controllers.RegistroDeUsuario.registrar()
