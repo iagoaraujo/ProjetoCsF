@@ -19,7 +19,7 @@ import views.html.login;
 public class Login extends Controller {
 	
 	private static GenericDAO dao = new GenericDAOImpl();
-	static Form<Usuario> loginForm = form(Usuario.class).bindFromRequest();
+	private static Form<Usuario> loginForm = form(Usuario.class).bindFromRequest();
 
 	@Transactional
     public static Result show() {
@@ -45,7 +45,7 @@ public class Login extends Controller {
 	public static Result authenticate() {
 		
 		Usuario pessoa = getLoginForm().bindFromRequest().get();
-		Usuario user = UsuarioNoSistemaESenhaOk(pessoa);
+		Usuario user = usuarioNoSistemaESenhaOk(pessoa);
 		if (user==null) {	
 			flash("fail","Usuario ou senha invalidos!");
 			return badRequest(login.render(getLoginForm()));
@@ -59,7 +59,7 @@ public class Login extends Controller {
 	
 	
 	@Transactional
-	private static Usuario UsuarioNoSistemaESenhaOk(Usuario pessoa) {
+	private static Usuario usuarioNoSistemaESenhaOk(Usuario pessoa) {
 		List<Usuario> pessoas = getDao().findAllByClassName("usuario");
 		for (Usuario usuario: pessoas) {
 			if (usuario.equals(pessoa) && usuario.getSenha().equals(pessoa.getSenha())) {

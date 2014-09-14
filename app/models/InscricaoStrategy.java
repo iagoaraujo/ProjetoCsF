@@ -1,13 +1,9 @@
 package models;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
 
 @MappedSuperclass
 public abstract class InscricaoStrategy {
@@ -20,4 +16,11 @@ public abstract class InscricaoStrategy {
 	
 	public abstract boolean exigeSenha();
 	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

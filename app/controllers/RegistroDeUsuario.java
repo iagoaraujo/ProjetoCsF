@@ -17,7 +17,7 @@ import views.html.registro;
 public class RegistroDeUsuario extends Controller {
 	
 	private static GenericDAO dao = new GenericDAOImpl();
-	static Form<Usuario> registroForm = form(Usuario.class).bindFromRequest();
+	private static Form<Usuario> registroForm = form(Usuario.class).bindFromRequest();
 
 	@Transactional
     public static Result show() {

@@ -4,11 +4,6 @@ import static play.data.Form.form;
 
 import java.util.List;
 
-import javax.persistence.PersistenceException;
-import javax.swing.text.html.FormView;
-
-import org.hibernate.exception.ConstraintViolationException;
-
 import com.google.common.base.Strings;
 
 import models.EContinente;
@@ -25,13 +20,10 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.cadastroViagem;
-import views.html.minhaviagem;
-import views.html.registro;
 
 public class Application extends Controller {
-	private static Form<Usuario> usuarioForm = Form.form(Usuario.class);
-	static Form<Viagem> viagemForm = Form.form(Viagem.class);
-	static Form<Usuario> registroForm = form(Usuario.class).bindFromRequest();
+	private static Form<Viagem> viagemForm = Form.form(Viagem.class);
+	private static Form<Usuario> registroForm = form(Usuario.class).bindFromRequest();
 
 
 	private static GenericDAO dao = new GenericDAOImpl();

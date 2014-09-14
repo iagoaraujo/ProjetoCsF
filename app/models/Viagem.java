@@ -179,51 +179,91 @@ public class Viagem {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((continente == null) ? 0 : continente.hashCode());
+		result = prime * result + ((dataFim == null) ? 0 : dataFim.hashCode());
+		result = prime * result
+				+ ((dataInicio == null) ? 0 : dataInicio.hashCode());
+		result = prime * result
+				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime
+				* result
+				+ ((inscricaoStrategy == null) ? 0 : inscricaoStrategy
+						.hashCode());
+		result = prime * result + ((local == null) ? 0 : local.hashCode());
+		result = prime * result
+				+ ((responsavel == null) ? 0 : responsavel.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Viagem))
+		}
+		if (!(obj instanceof Viagem)) {
 			return false;
+		}
 		Viagem other = (Viagem) obj;
-		if (continente != other.continente)
+		if (continente != other.continente) {
 			return false;
+		}
 		if (dataFim == null) {
-			if (other.dataFim != null)
+			if (other.dataFim != null) {
 				return false;
-		} else if (!dataFim.equals(other.dataFim))
+			}
+		} else if (!dataFim.equals(other.dataFim)) {
 			return false;
+		}
 		if (dataInicio == null) {
-			if (other.dataInicio != null)
+			if (other.dataInicio != null) {
 				return false;
-		} else if (!dataInicio.equals(other.dataInicio))
+			}
+		} else if (!dataInicio.equals(other.dataInicio)) {
 			return false;
+		}
 		if (descricao == null) {
-			if (other.descricao != null)
+			if (other.descricao != null) {
 				return false;
-		} else if (!descricao.equals(other.descricao))
+			}
+		} else if (!descricao.equals(other.descricao)) {
 			return false;
+		}
 		if (inscricaoStrategy == null) {
-			if (other.inscricaoStrategy != null)
+			if (other.inscricaoStrategy != null) {
 				return false;
-		} else if (!inscricaoStrategy.equals(other.inscricaoStrategy))
+			}
+		} else if (!inscricaoStrategy.equals(other.inscricaoStrategy)) {
 			return false;
+		}
 		if (local == null) {
-			if (other.local != null)
+			if (other.local != null) {
 				return false;
-		} else if (!local.equals(other.local))
+			}
+		} else if (!local.equals(other.local)) {
 			return false;
+		}
 		if (responsavel == null) {
-			if (other.responsavel != null)
+			if (other.responsavel != null) {
 				return false;
-		} else if (!responsavel.equals(other.responsavel))
+			}
+		} else if (!responsavel.equals(other.responsavel)) {
 			return false;
+		}
 		if (senha == null) {
-			if (other.senha != null)
+			if (other.senha != null) {
 				return false;
-		} else if (!senha.equals(other.senha))
+			}
+		} else if (!senha.equals(other.senha)) {
 			return false;
+		}
 		return true;
 	}
 }

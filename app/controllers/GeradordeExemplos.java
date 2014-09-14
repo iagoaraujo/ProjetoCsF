@@ -247,8 +247,29 @@ public class GeradordeExemplos {
 					inscritosviagem7.add(usuario4);
 					inscritosviagem7.add(usuario5);
 
+					List<Usuario> inscritosViagem8 = new ArrayList<Usuario>();
+					inscritosViagem8.add(usuario16);
+					inscritosViagem8.add(usuario17);
+					inscritosViagem8.add(usuario18);
+					inscritosViagem8.add(usuario19);
+					inscritosViagem8.add(usuario20);
 					
+					List<Usuario> inscritosViagem9 = new ArrayList<Usuario>();
+					inscritosViagem9.add(usuario21);
+					inscritosViagem9.add(usuario22);
+					inscritosViagem9.add(usuario23);
+					inscritosViagem9.add(usuario24);
+					inscritosViagem9.add(usuario25);
 
+					List<Usuario> inscritosViagem10 = new ArrayList<Usuario>();
+					inscritosViagem10.add(usuario30);
+					inscritosViagem10.add(usuario32);
+					inscritosViagem10.add(usuario33);
+					inscritosViagem10.add(usuario34);
+					inscritosViagem10.add(usuario36);
+					inscritosViagem10.add(usuario37);
+					inscritosViagem10.add(usuario38);
+					
 					administrador = new Usuario("Jose", "jose@gmail.com", "password");
 
 					
@@ -286,11 +307,11 @@ public class GeradordeExemplos {
 					viagem15.setInscricaoStrategy(new InscricaoAberta());
 					viagem16 = new Viagem(EContinente.AFRICA, "Marrocos",DATA, DATA, "Plano X", inscritosviagem1, usuario39);
 					viagem16.setInscricaoStrategy(new InscricaoAberta());
-					viagem17 = new Viagem(EContinente.AFRICA, "Moçambique",DATA, DATA, "Plano X", inscritosviagem1, usuario39);
+					viagem17 = new Viagem(EContinente.AFRICA, "Moçambique",DATA, DATA, "Plano X", inscritosViagem8, usuario39);
 					viagem17.setInscricaoStrategy(new InscricaoAberta());
-					viagem18 = new Viagem(EContinente.AFRICA, "Congo",DATA, DATA, "Plano X", inscritosviagem3, usuario39);
+					viagem18 = new Viagem(EContinente.AFRICA, "Congo",DATA, DATA, "Plano X", inscritosViagem9, usuario39);
 					viagem18.setInscricaoStrategy(new InscricaoAberta());
-					viagem19 = new Viagem(EContinente.OCEANIA, "Australia",DATA, DATA, "Plano X", inscritosviagem2, usuario39);
+					viagem19 = new Viagem(EContinente.OCEANIA, "Australia",DATA, DATA, "Plano X", inscritosViagem10, usuario39);
 					viagem19.setInscricaoStrategy(new InscricaoAberta());
 					viagem20 = new Viagem(EContinente.OCEANIA, "Nova Zelandia",DATA, DATA, "Plano X", inscritosviagem7, usuario39);
 					viagem20.setInscricaoStrategy(new InscricaoAberta());

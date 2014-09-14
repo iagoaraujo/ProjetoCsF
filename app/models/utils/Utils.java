@@ -9,8 +9,6 @@ import models.InscricaoLimitada;
 import models.InscricaoStrategy;
 import models.Usuario;
 import models.Viagem;
-import models.dao.GenericDAO;
-import models.dao.GenericDAOImpl;
 
 public class Utils {
 
