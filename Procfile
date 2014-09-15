@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/projetocsf -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL} -Djpa.default=postgrePersistenceUnit
+web: target/universal/stage/bin/ViagensCSF -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL} -Djpa.default=postgrePersistenceUnit
