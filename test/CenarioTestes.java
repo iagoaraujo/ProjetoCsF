@@ -4,6 +4,7 @@ import models.EContinente;
 import models.Usuario;
 import models.Viagem;
 
+//java -jar evosuite-1.0.3.jar -class models.Usuario -target /home/bruna/Documents/ProjetoCsF/target/scala-2.11/classes
 
 public class CenarioTestes {
 
